@@ -4,6 +4,7 @@ from ..items import MyprojectItem
 
 class MyfirstScrp(scrapy.Spider):
     name = 'quotes'
+    page_number=2
     start_urls = [
         'https://quotes.toscrape.com/'
     ]
@@ -20,6 +21,7 @@ class MyfirstScrp(scrapy.Spider):
             items['tags'] = tags
             yield items
 
-        next_page = response.css('li.next a::attr(href)').get()
-        if next_page:
+        next_page = 'https://quotes.toscrape.com/page/'+str(MyfirstScrp.page_number)+'/'
+        if MyfirstScrp.page_number < 11 :
+            MyfirstScrp.page_number += 1
             yield response.follow(next_page, callback=self.parse)
