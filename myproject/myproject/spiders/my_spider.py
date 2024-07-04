@@ -1,7 +1,7 @@
 import scrapy
 from scrapy.http import FormRequest
 from ..items import MyprojectItem
-
+from scrapy.utils.response import open_in_browser
 
 class MyfirstScrp(scrapy.Spider):
     name = 'quotes'
@@ -26,7 +26,9 @@ class MyfirstScrp(scrapy.Spider):
         )
 
     def start_scraping(self, response):
-        # Now you are logged in, scrape the quotes
+        # Now you are logged in, scrape the 
+        # you can use open_in_browser to login wtih browser 
+        open_in_browser(response)
         items = MyprojectItem()
 
         all_div_quotes = response.css('div.quote')
